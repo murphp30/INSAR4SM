@@ -57,7 +57,8 @@ def retrieve_ERA5_land_data(ERA5_variables:list, year_str:str, month_str:str, da
                 'day': days_list,
                 'time': time_list,
                 'area': bbox_cdsapi,
-                'format': 'netcdf',
+                'data_format': 'netcdf',
+                'download_format': 'unarchived',
             },
             export_filename)
         

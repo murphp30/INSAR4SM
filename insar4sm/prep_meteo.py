@@ -65,14 +65,14 @@ def convert_to_df(meteo_file:str, SM_AOI:str, ERA5_flag:bool)->pd.DataFrame:
             
             if ERA5_variable in ['longitude',  'latitude']:
                 pass
-            elif ERA5_variable=='time':
+            elif ERA5_variable=='valid_time':
                 time_var=ERA5_data.variables[ERA5_variable]
                 t_cal = ERA5_data.variables[ERA5_variable].calendar
                 dtime = netCDF4.num2date(time_var[:],time_var.units, calendar = t_cal)
                 dtime_datetime=[cftime_to_datetime(cfdatetime) for cfdatetime in dtime.data]
                 df_dict['Datetimes']=dtime_datetime
                 
-            elif ERA5_variable!='expver':
+            elif ERA5_variable!='expver' and ERA5_variable!='number':
                 temp_name=ERA5_variable+'__'+ERA5_data[ERA5_variable].units
                 temp_dataset=ERA5_data[ERA5_variable][:][:,ERA_pixel_ind1,ERA_pixel_ind2]
                 df_dict[temp_name]=np.squeeze(temp_dataset)
